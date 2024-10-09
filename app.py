@@ -1,7 +1,6 @@
 import streamlit as st
 import database as db
 from streamlit_option_menu import option_menu
-import streamlit_shadcn_ui as ui
 st.title("Blog Your Journey")
 
 selected = option_menu(
@@ -34,11 +33,7 @@ if selected == "Blogs":
     items = db.fetch_all_blogs()
     blogs = [[item["title"], item["blog"]] for item in items]
     # blogs = [item["blog"] for item in items]
-    id = 1
     for blog in blogs:
-        with ui.card(key = id):
-            ui.element("span", children=["Title: " + blog[0]], className="transparent-card text-white-800 text-m font-medium m-3")
-            ui.element("span", children=[blog[1]], className="transparent-card text-white-200 text-sm font-small flex flex-col")
-            id+=1
-            # st.write(blog[0])
-            # st.write(blog[1])
+        with st.container(border=True):
+            st.subheader(blog[0])
+            st.write(blog[1])
